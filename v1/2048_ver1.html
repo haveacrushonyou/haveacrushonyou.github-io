@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title>Document</title>
+	<script type="text/javascript" src="2048_funsctions.js"></script>
+	<link rel="stylesheet" type="text/css" href="interface.css">
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+</head>
+<body onload="drawGrid()" style="background-color: #FAF8EF;">
+	<div class="container" align="center">
+		<div class="row">
+			<div class="col-md-7 mb-5" id="title" align="center" style="left: -55px; top: 30px;">
+				<p><a href="2048_ver1.html">2048</a></p>
+			</div>
+			<div class="col-md-2" style="left: -10px; top: 70px;">
+				<div id="score" class="score-container">
+					SCORE <br>
+					<p id="mark">0</p>
+				</div>
+			</div>
+			<div class="col-md-3" style="left: -45px; top: 70px;">
+				<div id="best">
+					BEST <br>
+					<p id="bestScore">0</p>
+				</div>
+			</div>
+		</div>
+		<div id="main" align="center">
+			<table id="grid" align="center"> 
+				<tr>
+					<td></td><td></td><td></td><td></td>
+				</tr>
+				<tr>
+					<td></td><td></td><td></td><td></td>
+				</tr>
+				<tr>
+					<td></td><td></td><td></td><td></td>
+				</tr>
+				<tr>
+					<td></td><td></td><td></td><td></td>
+				</tr>
+			</table>
+		</div>
+		<div id="gameOverArea" align="center">
+			<p align="center" style="color: #8F7A66">Game Over!!!</p>
+			<button onclick="tryAgain()" id="btnTryAgain" class="btnTryAgain">Try again</button>
+		</div>
+		<div id="winArea" align="center">
+			<p align="center" style="color: #8F7A66">You Win!!!</p>
+			<button onclick="keepPlaying()" id="btnKeepPlaying" class="btnKeepPlaying">Keep playing</button>
+			<button onclick="$('#gameOverArea').hide();
+							 $(location).attr('href', '2048_ver1.html')" class="btnTryAgain">Try again</button>
+		</div>
+	</div>
+</body>
+</html>
